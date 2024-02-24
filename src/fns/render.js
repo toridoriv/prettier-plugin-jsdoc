@@ -142,18 +142,18 @@ const tryToRenderTagsInColumns = (tagsData, width, options, tags) =>
           const data = tagsData[tag.tag];
           return data.canUseColumns
             ? get(renderTagInColumns)(
-              data.columnsWidth.tag,
-              data.columnsWidth.type,
-              data.columnsWidth.name,
-              data.columnsWidth.description,
-              tag,
-            )
+                data.columnsWidth.tag,
+                data.columnsWidth.type,
+                data.columnsWidth.name,
+                data.columnsWidth.description,
+                tag,
+              )
             : get(renderTagInLine)(
-              width,
-              options.jsdocMinSpacesBetweenTagAndType,
-              options.jsdocMinSpacesBetweenTypeAndName,
-              tag,
-            );
+                width,
+                options.jsdocMinSpacesBetweenTagAndType,
+                options.jsdocMinSpacesBetweenTypeAndName,
+                tag,
+              );
         },
       ),
     ),
@@ -351,7 +351,9 @@ const render = R.curry((options, column, block) => {
       if (atLeastOneCannot && options.jsdocConsistentColumns) {
         lines.push(...get(renderTagsInlines)(width, options, block.tags));
       } else {
-        lines.push(...get(tryToRenderTagsInColumns)(tagsData, width, options, block.tags));
+        lines.push(
+          ...get(tryToRenderTagsInColumns)(tagsData, width, options, block.tags),
+        );
       }
     } else {
       const columnsWidth = get(calculateColumnsWidth)(options, data, width);
@@ -365,7 +367,7 @@ const render = R.curry((options, column, block) => {
     lines.push(...get(renderTagsInlines)(width, options, block.tags));
   }
 
-  const hasOverloads = lines.some((value) => value.includes("@overload"));
+  const hasOverloads = lines.some((value) => value.includes('@overload'));
 
   if (!hasOverloads) return lines;
 
@@ -373,25 +375,28 @@ const render = R.curry((options, column, block) => {
    * @type {string[]}
    */
   const newLines = [];
-  let nextJumpLine = getIndexOfNextLineMatch(lines, "overload", 0);
+  let nextJumpLine = getIndexOfNextLineMatch(lines, 'overload', 0);
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
-    const isOverload = line === "@overload";
+    const isOverload = line === '@overload';
+    const prev = lines[i - 1];
 
     if (nextJumpLine === i && isOverload) {
-      newLines.push("", line);
-      nextJumpLine = getIndexOfNextLineMatch(lines, "overload", i + 1);
+      if (prev !== '') {
+        newLines.push('');
+      }
+      newLines.push(line);
+      nextJumpLine = getIndexOfNextLineMatch(lines, 'overload', i + 1);
     } else if (nextJumpLine === i) {
-      newLines.push(line, "");
+      newLines.push(line, '');
     } else {
       newLines.push(line);
     }
 
     if (nextJumpLine < 0) {
-      nextJumpLine = getIndexOfNextLineMatch(lines, "returns", i + 1);
+      nextJumpLine = getIndexOfNextLineMatch(lines, 'returns', i + 1);
     }
-
   }
 
   return newLines;
