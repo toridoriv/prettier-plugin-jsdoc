@@ -1,9 +1,13 @@
 {
-  "name": "@homer0/prettier-plugin-jsdoc",
-  "description": "A Prettier plugin to format JSDoc blocks",
-  "version": "8.0.0",
-  "repository": "homer0/prettier-plugin-jsdoc",
-  "author": "Leonardo Apiwan (@homer0) <me@homer0.com>",
+  "name": "@toridoriv/prettier-plugin-jsdoc",
+  "description": "A Prettier plugin to format JSDoc blocks. Fork of @homer0/prettier-plugin-jsdoc 💖",
+  "version": "0.1.0",
+  "repository": "toridoriv/prettier-plugin-jsdoc",
+  "author": {
+    "name": "Victoria Rodriguez",
+    "email": "vrodriguezfe@icloud.com",
+    "url": "https://github.com/toridoriv"
+  },
   "license": "MIT",
   "keywords": [
     "jsdoc",
