@@ -30,6 +30,7 @@
     "@commitlint/config-conventional": "^19.4.1",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
+    "brace-expansion": "^2.0.2",
     "eslint": "^9.39.1",
     "husky": "^9.1.5",
     "is-ci": "^3.0.1",
@@ -63,5 +64,8 @@
       "eslint",
       "prettier --write"
     ]
+  },
+  "overrides": {
+    "brace-expansion": "$brace-expansion"
   }
 }
